@@ -9,7 +9,7 @@ const app = express();
 //middlewares
 app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
 app.use(express.json());
-app.use(cookieParser());
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use("/api/v1", appRouter);
 app.get("/", (req, res, next) => {
     res.send("Yes, You are connected");

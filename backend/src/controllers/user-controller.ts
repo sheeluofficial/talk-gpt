@@ -1,8 +1,8 @@
 import { Request, Response, NextFunction } from "express";
 import { hash, compare } from 'bcrypt';
+import User from "../models/User.js"
 import { createToken } from "../utils/token-manager.js";
 import { COOKIE_NAME } from "../utils/constants.js";
-import User from "../models/User.js";
 
 export const getAllUsers = async (
     req: Request,
@@ -40,7 +40,12 @@ export const userSignup = async (
         await newUser.save();
 
         //remove any existing cookies
-        res.clearCookie(COOKIE_NAME);
+        res.clearCookie(COOKIE_NAME, {
+            httpOnly: true,
+            domain: process.env.COOKIE_DOMAIN,
+            signed: true,
+            path: "/",
+        });
 
         //create token and store cookie
         const token = createToken(newUser._id.toString(), newUser.email, "7d");
@@ -48,7 +53,11 @@ export const userSignup = async (
         expires.setDate(expires.getDate() + 7);
 
         res.cookie(COOKIE_NAME, token, {
+            path: "/",
+            domain: process.env.COOKIE_DOMAIN,
             expires,
+            httpOnly: true,
+            signed: true,
         });
 
         return res.status(201).json({ message: "OK", name: newUser.name, email: newUser.email });
@@ -78,7 +87,12 @@ export const userLogin = async (
             return res.status(403).send("Incorrect password");
 
         //remove any existing cookies
-        res.clearCookie(COOKIE_NAME);
+        res.clearCookie(COOKIE_NAME, {
+            httpOnly: true,
+            domain: process.env.COOKIE_DOMAIN,
+            signed: true,
+            path: "/",
+        });
 
         //create token and store cookie
         const token = createToken(existingUser._id.toString(), existingUser.email, "7d");
@@ -86,8 +100,11 @@ export const userLogin = async (
         expires.setDate(expires.getDate() + 7);
 
         res.cookie(COOKIE_NAME, token, {
+            path: "/",
+            domain: process.env.COOKIE_DOMAIN,
             expires,
-          
+            httpOnly: true,
+            signed: true,
         });
 
         return res.status(200).json({ message: "OK", name: existingUser.name, email: existingUser.email });
@@ -132,7 +149,12 @@ export const userLogout = async (
             return res.status(401).send("Permissions did not match...");
         }
 
-        res.clearCookie(COOKIE_NAME);
+        res.clearCookie(COOKIE_NAME, {
+            httpOnly: true,
+            domain: process.env.COOKIE_DOMAIN,
+            signed: true,
+            path: '/'
+        });
 
         return res.status(200).json({ message: "OK", name: user.name, email: user.email });
     } catch (error) {
