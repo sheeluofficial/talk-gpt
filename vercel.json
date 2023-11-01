@@ -7,9 +7,8 @@
         "config": { "distDir": "dist" }
       },
       {
-        "src": "backend/package.json",
-        "use": "@vercel/node",
-        "config": { "distDir": "dist" }
+        "src": "backend/server.js",
+        "use": "@vercel/node"
       }
     ],
     "routes": [
