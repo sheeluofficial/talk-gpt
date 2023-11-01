@@ -17,8 +17,8 @@ app.use("/api/v1", appRouter);
 // })
 //remove it in production
 const __dirname1 = path.resolve();
-app.use(express.static(path.join(__dirname1, "../frontend/dist")));
-app.get("*", (req, res) => res.sendFile(path.resolve(__dirname1, "..", "frontend", "dist", "index.html")));
+app.use(express.static(path.join(__dirname1, "frontend/dist")));
+app.get("*", (req, res) => res.sendFile(path.resolve(__dirname1, "frontend", "dist", "index.html")));
 app.use(morgan('dev'));
 export default app;
 //# sourceMappingURL=app.js.map
