@@ -10,7 +10,13 @@ config();
 const app = express();
 
 //middlewares
-app.use(cors({ origin: "*" }));
+// Enable All CORS Requests from a Specific Origin
+const corsOptions = {
+  origin: 'https://talk-gpt-dep.vercel.app/',
+  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use("/api/v1", appRouter)
