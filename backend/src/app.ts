@@ -10,7 +10,7 @@ config();
 const app = express();
 
 //middlewares
-app.use(cors());
+app.use(cors({ origin: "*" }));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET))
 app.use("/api/v1", appRouter)
