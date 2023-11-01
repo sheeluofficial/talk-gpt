@@ -11,7 +11,7 @@ import axios from "axios";
 import { AuthProvider } from "./context/AuthContext.tsx";
 
 //default axios settings
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+axios.defaults.baseURL = "https://talk-gpt.onrender.com/api/v1";
 axios.defaults.withCredentials = true; // --> help with exchanging the cookies
 
 //Theme for the whole page - MUI
