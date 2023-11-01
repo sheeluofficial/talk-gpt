@@ -4,10 +4,7 @@
       {
         "src": "frontend/package.json",
         "use": "@vercel/static-build",
-        "config": { "distDir": "dist" },
-        "env": {
-          "NODE_ENV": "production"
-        }
+        "config": { "distDir": "dist" }
       },
       {
         "src": "backend/package.json",
