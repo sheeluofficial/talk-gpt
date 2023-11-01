@@ -8,7 +8,14 @@ import path from "path";
 config();
 const app = express();
 //middlewares
-app.use(cors({ origin: process.env.CORS_ORIGIN, credentials: true }));
+// Enable All CORS Requests from a Specific Origin
+const corsOptions = {
+    origin: 'https://talk-gpt-dep.vercel.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    optionsSuccessStatus: 204,
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use("/api/v1", appRouter);
