@@ -11,7 +11,7 @@ const app = express();
 //middlewares
 // Enable All CORS Requests from a Specific Origin
 const corsOptions = {
-  origin:  process.env.CORS_ORIGIN,
+  origin:  "*",
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true,
   optionsSuccessStatus: 204,
@@ -31,7 +31,7 @@ const __dirname1 = path.resolve();
 
 app.use(express.static(path.join(__dirname1, "public")));
 
-app.get("*", (req, res) =>
+app.get("/*", (req, res) =>
   res.sendFile(path.resolve(__dirname1, "public", "index.html"))
 );
 
