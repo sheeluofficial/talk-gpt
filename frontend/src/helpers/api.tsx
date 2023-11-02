@@ -1,0 +1,1 @@
+export const api = "https://talk-gpt.onrender.com/api/v1";
